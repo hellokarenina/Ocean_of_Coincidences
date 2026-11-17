@@ -44,6 +44,40 @@ document.querySelector('#app').appendChild(
   renderer.domElement
 );
 
+
+
+
+
+ // FRASE DEL OCÉANO
+ const quote = document.createElement('div');
+
+ quote.textContent =
+   'Qué suerte coincidir en este océano infinito.';
+ 
+ quote.style.cssText = `
+   position: fixed;
+   bottom: 8%;
+   left: 0;
+   width: 100%;
+   padding: 0 20px;
+   box-sizing: border-box;
+   z-index: 2147483647;
+   color: #a3aebb;
+   font-family: Georgia, serif;
+   font-size: clamp(17px, 2.2vw, 25px);
+   font-style: italic;
+   text-align: center;
+   letter-spacing: 1px;
+   text-shadow: 0 0 12px rgba(120, 160, 190, 0.15);   pointer-events: none;
+   opacity: 1;
+ `;
+ 
+ document.body.appendChild(quote);
+ 
+
+
+
+
 // ==========================================
 // 4. TEXTURA PROCEDURAL
 // ==========================================

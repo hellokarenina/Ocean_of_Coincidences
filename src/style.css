@@ -1,4 +1,6 @@
 
+/* CONFIGURACIÓN GENERAL */
+
 * {
   margin: 0;
   padding: 0;
@@ -13,11 +15,46 @@ body {
   background: #020510;
 }
 
+/* CONTENEDOR PRINCIPAL */
+
 #app {
+  position: relative;
   width: 100vw;
   height: 100vh;
 }
 
+/* OCÉANO DE PARTÍCULAS */
+
 canvas {
   display: block;
+}
+
+/* FRASE POÉTICA */
+
+.ocean-quote {
+  position: fixed;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 90%;
+  margin: 0;
+
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(16px, 2.2vw, 25px);
+  font-style: italic;
+  font-weight: 400;
+
+  color: #eaf8ff;
+  text-align: center;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+
+  text-shadow:
+    0 0 15px rgba(83, 223, 255, 0.5),
+    0 0 30px rgba(177, 140, 255, 0.3);
+
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 1;
 }
