@@ -217,13 +217,33 @@ const pargo = createFish(
   'pargo'
 );
 
-// Tamaño de los peces
-fish.scale.setScalar(1.05);
-pargo.scale.setScalar(1.05);
 
-// Posiciones iniciales
-fish.position.x = -4.4;
-pargo.position.x = 4.4;
+ // ADAPTAR LOS PECES A CADA PANTALLA
+
+ function adjustFishLayout() {
+  const isPortrait =
+    window.innerWidth / window.innerHeight < 0.85;
+
+  if (isPortrait) {
+    // Celulares y pantallas verticales
+    fish.scale.setScalar(0.58);
+    pargo.scale.setScalar(0.58);
+
+    fish.position.x = -1.8;
+    pargo.position.x = 1.8;
+  } else {
+    // Computadoras y pantallas horizontales
+    fish.scale.setScalar(1.05);
+    pargo.scale.setScalar(1.05);
+
+    fish.position.x = -4.4;
+    pargo.position.x = 4.4;
+  }
+}
+
+// Aplicar configuración inicial
+adjustFishLayout();
+
 
 // Orientación inicial
 fish.rotation.y = 0;
@@ -390,7 +410,12 @@ window.addEventListener('resize', () => {
     window.innerHeight
   );
 
+
   renderer.setPixelRatio(
     Math.min(window.devicePixelRatio, 2)
   );
-});
+  
+  // Adaptar los peces al tamaño de pantalla
+  adjustFishLayout();
+  });
+  
