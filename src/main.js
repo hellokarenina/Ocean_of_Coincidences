@@ -241,39 +241,44 @@ const pargo = createFish(
   }
 }
 
-// Aplicar configuración inicial
-adjustFishLayout();
 
+function adjustFishLayout() {
+  const aspect = window.innerWidth / window.innerHeight;
+  const isMobile = aspect < 0.85;
 
-// Orientación inicial
-fish.rotation.y = 0;
-pargo.rotation.y = Math.PI;
+  if (isMobile) {
+    // Composición vertical para celulares
+    camera.position.z = 26;
 
-// Agregar a la escena
-scene.add(fish, pargo);
+    // Ajustar escala según el ancho disponible
+    const scale = Math.min(1, aspect / 0.58);
 
-// Guardar geometrías originales
-const fishOriginalPositions =
-  fish.geometry.attributes.position.array.slice();
+    fish.scale.setScalar(scale);
+    pargo.scale.setScalar(scale);
 
-const pargoOriginalPositions =
-  pargo.geometry.attributes.position.array.slice();
+    // Peces en diagonal
+    fish.position.x = -2.7 * scale;
+    pargo.position.x = 2.7 * scale;
 
-// Configuración individual
-const swimmers = [
-  {
-    mesh: fish,
-    original: fishOriginalPositions,
-    phase: 0,
-    baseRotation: 0
-  },
-  {
-    mesh: pargo,
-    original: pargoOriginalPositions,
-    phase: 1.3,
-    baseRotation: Math.PI
+    // Altura base de cada pez
+    fish.userData.baseY = 1.7 * scale;
+    pargo.userData.baseY = -1.7 * scale;
+
+  } else {
+    // Composición original de computadora
+    camera.position.z = 16;
+
+    fish.scale.setScalar(1.05);
+    pargo.scale.setScalar(1.05);
+
+    fish.position.x = -4.4;
+    pargo.position.x = 4.4;
+
+    fish.userData.baseY = 0;
+    pargo.userData.baseY = 0;
   }
-];
+}
+
 
 // ==========================================
 // 8. INTERACTIVIDAD CON EL CURSOR
@@ -312,9 +317,12 @@ function animate() {
     const original = swimmer.original;
     const phase = swimmer.phase;
 
-    // Flotación suave
-    mesh.position.y =
-      Math.sin(time * 0.7 + phase) * 0.12;
+
+// Flotación suave respetando la posición inicial
+mesh.position.y =
+  (mesh.userData.baseY ?? 0) +
+  Math.sin(time * 0.7 + phase) * 0.12;
+
 
     // Rotación suave
     mesh.rotation.y =
